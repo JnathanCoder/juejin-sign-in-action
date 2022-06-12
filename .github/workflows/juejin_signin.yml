@@ -5,7 +5,7 @@ on:
         branches:
             - main
     schedule:
-        - cron: "0 1 * * *"
+        - cron: "0 0 * * *"
 
 jobs:
     juejin-autoSignIn:
@@ -27,4 +27,5 @@ jobs:
               env:
                   JJ_COOKIE: ${{ secrets.JJ_COOKIE }}
                   SERVER_KEY: ${{ secrets.SERVER_KEY }}
+                  SERVER_KEY: ${{ secrets.XZ_KEY }}
               run: python signin.py
