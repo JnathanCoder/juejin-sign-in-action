@@ -27,5 +27,5 @@ jobs:
               env:
                   JJ_COOKIE: ${{ secrets.JJ_COOKIE }}
                   SERVER_KEY: ${{ secrets.SERVER_KEY }}
-                  SERVER_KEY: ${{ secrets.XZ_KEY }}
+                  XZ_KEY: ${{ secrets.XZ_KEY }}
               run: python signin.py
