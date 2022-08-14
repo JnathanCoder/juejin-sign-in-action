@@ -28,4 +28,5 @@ jobs:
                   JJ_COOKIE: ${{ secrets.JJ_COOKIE }}
                   SERVER_KEY: ${{ secrets.SERVER_KEY }}
                   XZ_KEY: ${{ secrets.XZ_KEY }}
+                  AAA_KEY: ${{ secrets.AAA_KEY }}
               run: python signin.py
