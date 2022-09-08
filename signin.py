@@ -42,14 +42,13 @@ if __name__ == '__main__':
     # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
     lottery_history_id = dipLuckyListResp.json()
-    fff = dipLuckyListResp.headers['Content-Type']
+    ff = lottery_history_id["data"]
     # lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     if xz_server:
         # xz_server('掘金签到+每日抽奖', resultMsg)
         # xz_server('------', dipLuckyListResp.text + "\n------\n" + lottery_history_id2)
-        xz_server('------', lottery_history_id)
-        xz_server('------2', fff)
+        xz_server('------', ff1)
     else:
         print('未启用 息知通知')
     # print('本次签到与抽奖结果信息:\n %s' % resultMsg)
