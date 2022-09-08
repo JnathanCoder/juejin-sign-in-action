@@ -17,7 +17,7 @@ checkInUrl = baseUrl + 'growth_api/v1/check_in'
 lotteryUrl = baseUrl + 'growth_api/v1/lottery/draw'
 # 沾手气列表
 dipLuckyListUrl = baseUrl + 'growth_api/v1/lottery_history/global_big'
-dipLuckyUrl = baseUrl + 'growth_api/v1/lottery_history/dip_lucky'
+dipLuckyUrl = baseUrl + 'growth_api/v1/lottery_lucky/dip_lucky'
 
 # user-agent
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.106 Safari/537.36'}
