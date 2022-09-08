@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     if xz_server:
         # xz_server('掘金签到+每日抽奖', resultMsg)
-        xz_server('------', dipLuckyListResp.json())
+        xz_server('------', dipLuckyListResp.text)
     else:
         print('未启用 息知通知')
     # print('本次签到与抽奖结果信息:\n %s' % resultMsg)
