@@ -2,6 +2,8 @@ import os
 
 import requests
 
+# import str
+
 # 添加 server 酱通知
 server_key = os.environ["SERVER_KEY"]
 # 添加 息知通知
@@ -51,7 +53,7 @@ if __name__ == '__main__':
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
-        dipLuckyMsg = "沾手气结果: 成功。沾到 " + ("" + respToJson["data"]["dip_value"]) + "。当前：" + respToJson["data"]["total_value"] + " / 6000"
+        dipLuckyMsg = "沾手气结果: 成功。沾到 " + str(respToJson["data"]["dip_value"]) + "。当前：" + respToJson["data"]["total_value"] + " / 6000"
     else:
         dipLuckyMsg = "沾手气结果：失败。原因：" + respToJson["err_msg"]
 
