@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
     lottery_history_id = dipLuckyListResp.json()
-    ff = lottery_history_id["data"]
+    ff1 = lottery_history_id["data"]
     # lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     if xz_server:
