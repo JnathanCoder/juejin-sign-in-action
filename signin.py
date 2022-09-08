@@ -50,11 +50,10 @@ if __name__ == '__main__':
     lottery_history_id = listRespToJson["data"]["lotteries"][0]["history_id"]
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
-    dipLuckyMsg = ''
-    if respToJson['err_msg'] == 'success':
-        dipLuckyMsg = "沾手气结果: 成功沾到 " + respToJson["dip_value"] + "。当前：" + respToJson["total_value"] + " / 6000"
+    if respToJson["err_msg"] == 'success':
+        dipLuckyMsg = "沾手气结果: 成功。沾到 " + respToJson["data"]["dip_value"] + "。当前：" + respToJson["data"]["total_value"] + " / 6000"
     else:
-        dipLuckyMsg = "沾手气结果：失败。原因：" +  respToJson["err_msg"]
+        dipLuckyMsg = "沾手气结果：失败。原因：" + respToJson["err_msg"]
 
 
     # lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
