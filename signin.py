@@ -38,19 +38,32 @@ def xz_server(title, content):
 
 # 入口
 if __name__ == '__main__':
+    # 签到
     # checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
+
+    # 免费抽奖
     # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
+
+    # 沾手气
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
-    respToJson = dipLuckyListResp.json()
-    lottery_history_id = respToJson["data"]["lotteries"][0]["history_id"]
+    listRespToJson = dipLuckyListResp.json()
+    lottery_history_id = listRespToJson["data"]["lotteries"][0]["history_id"]
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
+    respToJson = dipLuckyResp.json()
+    dipLuckyMsg = ''
+    if respToJson['err_msg'] == 'success':
+        dipLuckyMsg = "沾手气结果: 成功沾到 " + respToJson["dip_value"] + "。当前：" + respToJson["total_value"] + " / 6000"
+    else:
+        dipLuckyMsg = "沾手气结果：失败。原因：" +  respToJson["err_msg"]
+
+
     # lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     resultMsg = "沾手气结果\n" + dipLuckyResp.text
     if xz_server:
         # xz_server('掘金签到+每日抽奖', resultMsg)
         # xz_server('------', dipLuckyListResp.text + "\n------\n" + lottery_history_id2)
-        xz_server('掘金签到+免费抽奖+沾手气', resultMsg)
+        xz_server('掘金签到 && 免费抽奖 && 沾手气', dipLuckyMsg)
     else:
         print('未启用 息知通知')
     # print('本次签到与抽奖结果信息:\n %s' % resultMsg)
