@@ -2,6 +2,8 @@ import os
 
 import requests
 
+import json
+
 # 添加 server 酱通知
 server_key = os.environ["SERVER_KEY"]
 # 添加 息知通知
@@ -41,8 +43,8 @@ if __name__ == '__main__':
     # checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
     # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
-    lottery_history_id = dipLuckyListResp.text.data.lotteries
-    lottery_history_id2 = dipLuckyListResp.text.data.lotteries[0]
+    lottery_history_id = json.loads(dipLuckyListResp.text).data.lotteries
+    lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     if xz_server:
         # xz_server('掘金签到+每日抽奖', resultMsg)
