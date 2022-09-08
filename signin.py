@@ -40,7 +40,7 @@ def xz_server(title, content):
 if __name__ == '__main__':
     # checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
     # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
-    dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={page_no: 1, page_size: 5})
+    dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     if xz_server:
         # xz_server('掘金签到+每日抽奖', resultMsg)
