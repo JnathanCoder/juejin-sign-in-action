@@ -46,7 +46,7 @@ if __name__ == '__main__':
     else:
         checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
 
-    # 免费抽奖
+    # 免费抽奖 可优化下根据get_today_status接口判断今日是否抽过奖
     lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     lotteryJson = lotteryResp.json()
     if lotteryJson['err_msg'] == 'success':
@@ -61,7 +61,10 @@ if __name__ == '__main__':
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
-        dipLuckyMsg = "沾手气结果: 成功！幸运值提升 " + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
+        if respToJson["data"]["has_dip"] == true:
+            dipLuckyMsg = "沾手气结果：失败！原因：今日已沾过" + str(respToJson["data"]["dip_value"]) + "点喜气！"
+        else:
+            dipLuckyMsg = "沾手气结果: 成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000
     else:
         dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
