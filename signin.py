@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # 签到
     checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
     checkInJson = checkInResp.json()
-    if checkInJson['err_msg'] == 'success'
+    if checkInJson['err_msg'] == 'success':
         checkInMsg = "签到结果： 成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
     else:
         checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     # 免费抽奖
     lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     lotteryJson = lotteryResp.json()
-    if lotteryJson['err_msg'] == 'success'
+    if lotteryJson['err_msg'] == 'success':
         lotteryMsg = '免费抽奖结果：成功！抽到' + lotteryJson['data']['lottory_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
     else:
         lotteryMsg = '免费抽奖结果：失败！原因' + lotteryJson["err_msg"]
