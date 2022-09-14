@@ -61,10 +61,13 @@ if __name__ == '__main__':
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
+        print(respToJson["data"]["has_dip"])
+        print(str(respToJson["data"]["has_dip"]))
+        print(str(respToJson["data"]["has_dip"]) == "true")
         if str(respToJson["data"]["has_dip"]) == "true":
             dipLuckyMsg = "沾手气结果：失败！原因：今日已沾过" + str(respToJson["data"]["dip_value"]) + "点喜气！"
         else:
-            dipLuckyMsg = "沾手气结果: 成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
+            dipLuckyMsg = "沾手气结果：成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
     else:
         dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
