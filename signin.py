@@ -50,7 +50,7 @@ if __name__ == '__main__':
     lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
     lotteryJson = lotteryResp.json()
     if lotteryJson['err_msg'] == 'success':
-        lotteryMsg = '免费抽奖结果：成功！抽到' + lotteryJson['data']['lottory_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
+        lotteryMsg = '免费抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
     else:
         lotteryMsg = '免费抽奖结果：失败！原因' + lotteryJson["err_msg"]
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
-        dipLuckyMsg = "沾手气结果: 成功！幸运值提升 " + str(respToJson["data"]["dip_value"]) + "，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
+        dipLuckyMsg = "沾手气结果: 成功！幸运值提升 " + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
     else:
         dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
