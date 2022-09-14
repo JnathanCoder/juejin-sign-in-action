@@ -64,7 +64,7 @@ if __name__ == '__main__':
         if respToJson["data"]["has_dip"] == true:
             dipLuckyMsg = "沾手气结果：失败！原因：今日已沾过" + str(respToJson["data"]["dip_value"]) + "点喜气！"
         else:
-            dipLuckyMsg = "沾手气结果: 成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000
+            dipLuckyMsg = "沾手气结果: 成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
     else:
         dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
