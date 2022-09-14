@@ -2,8 +2,6 @@ import os
 
 import requests
 
-# import str
-
 # 添加 server 酱通知
 server_key = os.environ["SERVER_KEY"]
 # 添加 息知通知
@@ -41,10 +39,20 @@ def xz_server(title, content):
 # 入口
 if __name__ == '__main__':
     # 签到
-    # checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    checkInJson = checkInResp.json()
+    if checkInJson['err_msg'] == 'success'
+        checkInMsg = "签到结果： 成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
+    else:
+        checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
 
     # 免费抽奖
-    # lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    lotteryJson = lotteryResp.json()
+    if lotteryJson['err_msg'] == 'success'
+        lotteryMsg = '免费抽奖结果：成功！抽到' + lotteryJson['data']['lottory_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
+    else:
+        lotteryMsg = '免费抽奖结果：失败！原因' + lotteryJson["err_msg"]
 
     # 沾手气
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
@@ -53,18 +61,14 @@ if __name__ == '__main__':
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
-        dipLuckyMsg = "沾手气结果: 成功。沾到 " + str(respToJson["data"]["dip_value"]) + "。当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
+        dipLuckyMsg = "沾手气结果: 成功！幸运值提升 " + str(respToJson["data"]["dip_value"]) + "，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
     else:
-        dipLuckyMsg = "沾手气结果：失败。原因：" + respToJson["err_msg"]
+        dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
 
-    # lottery_history_id2 = json.loads(dipLuckyListResp.text).data.lotteries[0]
     # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
-    resultMsg = "沾手气结果\n" + dipLuckyResp.text
+    resultMsg = checkInMsg + "\n\n" + lotteryMsg + "\n\n" + dipLuckyMsg
     if xz_server:
-        # xz_server('掘金签到+每日抽奖', resultMsg)
-        # xz_server('------', dipLuckyListResp.text + "\n------\n" + lottery_history_id2)
-        xz_server('掘金签到 && 免费抽奖 && 沾手气', dipLuckyMsg)
+        xz_server('掘金签到 && 免费抽奖 && 沾手气', resultMsg)
     else:
         print('未启用 息知通知')
-    # print('本次签到与抽奖结果信息:\n %s' % resultMsg)
