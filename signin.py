@@ -45,9 +45,11 @@ if __name__ == '__main__':
     checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
     checkInJson = checkInResp.json()
     if checkInJson['err_msg'] == 'success':
-        checkInMsg = "签到结果： 成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
+        checkInMsg = "签到结果：成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
     else:
-        checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"] + '。签到获得' + str(checkInJson['data']['incr_point']) + '钻石💎'
+        checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
+        print(str(checkInJson['data']))
+        # + '。签到获得' + str(checkInJson['data']['incr_point']) + '钻石💎'
 
     # 免费抽奖状态
     freeResp = requests.post(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
