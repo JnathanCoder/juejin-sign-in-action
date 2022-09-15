@@ -14,6 +14,9 @@ jj_cookie = os.environ["JJ_COOKIE"]
 # 掘金 api_url
 baseUrl = 'https://api.juejin.cn/'
 checkInUrl = baseUrl + 'growth_api/v1/check_in'
+# 判断是否有免费抽奖
+freeUrl = baseUrl + 'growth_api/v1/get_today_status'
+# 抽奖
 lotteryUrl = baseUrl + 'growth_api/v1/lottery/draw'
 # 沾手气列表
 dipLuckyListUrl = baseUrl + 'growth_api/v1/lottery_history/global_big'
@@ -44,15 +47,30 @@ if __name__ == '__main__':
     if checkInJson['err_msg'] == 'success':
         checkInMsg = "签到结果： 成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
     else:
-        checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
+        checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"] + '。签到获得' + str(checkInJson['data']['incr_point']) + '钻石💎'
 
-    # 免费抽奖 可优化下根据get_today_status接口判断今日是否抽过奖
-    lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
-    lotteryJson = lotteryResp.json()
-    if lotteryJson['err_msg'] == 'success':
-        lotteryMsg = '免费抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
+    # 免费抽奖状态
+    freeResp = requests.post(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    freeJson = freeResp.json()
+    if freeJson['err_msg'] == 'success':
+        if freeJson['data'] == True:
+            hasFreeLottery = True
+        else:
+            hasFreeLottery = False
     else:
-        lotteryMsg = '免费抽奖结果：失败！原因' + lotteryJson["err_msg"]
+        hasFreeLottery = False
+
+    # 有免费抽奖次数
+    if hasFreeLottery == True:
+        # 抽奖
+        lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
+        lotteryJson = lotteryResp.json()
+        if lotteryJson['err_msg'] == 'success':
+            lotteryMsg = '抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
+        else:
+            lotteryMsg = '抽奖结果：失败！原因' + lotteryJson["err_msg"]
+    else:
+        lotteryMsg = '今日已使用免费抽奖次数，自动拦截使用钻石💎抽奖'
 
     # 沾手气
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
@@ -69,9 +87,8 @@ if __name__ == '__main__':
         dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
 
 
-    # resultMsg = "签到结果\n" + checkInResp.text + "\n 抽奖结果\n" + lotteryResp.text
     resultMsg = checkInMsg + "\n\n" + lotteryMsg + "\n\n" + dipLuckyMsg
     if xz_server:
-        xz_server('掘金签到 && 免费抽奖 && 沾手气', resultMsg)
+        xz_server('掘金签到 && 抽奖 && 沾手气', resultMsg)
     else:
         print('未启用 息知通知')
