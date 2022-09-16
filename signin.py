@@ -43,6 +43,7 @@ def xz_server(title, content):
 if __name__ == '__main__':
     # 签到
     checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    print('checkInResp: ' + checkInResp.text)
     checkInJson = checkInResp.json()
     if checkInJson['err_msg'] == 'success':
         checkInMsg = "签到结果：成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
@@ -51,31 +52,31 @@ if __name__ == '__main__':
 
     # 免费抽奖状态
     freeResp = requests.get(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    print('freeResp: ' + freeResp.text)
     freeJson = freeResp.json()
-    # if freeJson['err_msg'] == 'success':
-    #     if freeJson['data'] == True:
-    #         hasFreeLottery = True
-    #     else:
-    #         hasFreeLottery = False
-    # else:
-    #     hasFreeLottery = True
+    if freeJson['err_msg'] == 'success':
+        if freeJson['data'] == True:
+            hasFreeLottery = True
+        else:
+            hasFreeLottery = False
+    else:
+        hasFreeLottery = True
 
-    print(freeResp.text)
-    # print(hasFreeLottery)
+    print(hasFreeLottery)
 
 
-    # # 有免费抽奖次数
-    # if hasFreeLottery == True:
-    #     # 抽奖
-    #     lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
-    #     lotteryJson = lotteryResp.json()
-    #     if lotteryJson['err_msg'] == 'success':
-    #         lotteryMsg = '抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
-    #     else:
-    #         lotteryMsg = '抽奖结果：失败！原因' + lotteryJson["err_msg"]
-    # else:
-    #     lotteryMsg = '今日已使用免费抽奖次数，自动拦截使用钻石💎抽奖'
-    lotteryMsg = 'bbbbb...__'
+    # 有免费抽奖次数
+    if hasFreeLottery == True:
+        # 抽奖
+        lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
+        print('lotteryResp: ' + lotteryResp.text)
+        lotteryJson = lotteryResp.json()
+        if lotteryJson['err_msg'] == 'success':
+            lotteryMsg = '抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
+        else:
+            lotteryMsg = '抽奖结果：失败！原因' + lotteryJson["err_msg"]
+    else:
+        lotteryMsg = '今日已使用免费抽奖次数，自动拦截使用钻石💎抽奖'
     
     # # 沾手气
     # dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
