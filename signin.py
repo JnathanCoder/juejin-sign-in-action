@@ -59,7 +59,8 @@ if __name__ == '__main__':
             hasFreeLottery = False
     else:
         hasFreeLottery = True
-print(hasFreeLottery)
+
+    print(hasFreeLottery)
 
 
     # # 有免费抽奖次数
@@ -73,7 +74,8 @@ print(hasFreeLottery)
     #         lotteryMsg = '抽奖结果：失败！原因' + lotteryJson["err_msg"]
     # else:
     #     lotteryMsg = '今日已使用免费抽奖次数，自动拦截使用钻石💎抽奖'
-lotteryMsg = 'fggggg...__'
+    lotteryMsg = 'fggggg...__'
+    
     # 沾手气
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
     listRespToJson = dipLuckyListResp.json()
