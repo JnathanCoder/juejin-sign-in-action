@@ -50,7 +50,7 @@ if __name__ == '__main__':
         checkInMsg = '签到结果：失败！原因：' + checkInJson["err_msg"]
 
     # 免费抽奖状态
-    freeResp = requests.post(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
+    freeResp = requests.get(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
     freeJson = freeResp.json()
     # if freeJson['err_msg'] == 'success':
     #     if freeJson['data'] == True:
