@@ -41,7 +41,7 @@ def xz_server(title, content):
 if __name__ == '__main__':
     # 签到
     checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
-    print('checkInResp: ' + checkInResp.text)
+    print('【checkInResp】' + checkInResp.text)
     checkInJson = checkInResp.json()
     if checkInJson['err_msg'] == 'success':
         checkInMsg = "签到结果：成功！获得" + str(checkInJson['data']['incr_point']) + '钻石💎，当前：' + str(checkInJson['data']['sum_point'])
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     # 抽奖
     lotteryResp = requests.post(lotteryUrl, headers=headers, cookies={'Cookie': jj_cookie})
-    print('lotteryResp: ' + lotteryResp.text)
+    print('【lotteryResp:】' + lotteryResp.text)
     lotteryJson = lotteryResp.json()
     if lotteryJson['err_msg'] == 'success':
         lotteryMsg = '抽奖结果：成功！抽到' + lotteryJson['data']['lottery_name'] + '。幸运值提升' + str(lotteryJson["data"]["draw_lucky_value"]) + "点，当前：" + str(lotteryJson["data"]["total_lucky_value"]) + " / 6000"
@@ -59,11 +59,11 @@ if __name__ == '__main__':
     
     # 沾手气
     dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
-    print('dipLuckyListResp: ' + dipLuckyListResp.text)
+    print('【dipLuckyListResp】' + dipLuckyListResp.text)
     listRespToJson = dipLuckyListResp.json()
     lottery_history_id = listRespToJson["data"]["lotteries"][0]["history_id"]
     dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
-    print('dipLuckyResp: ' + dipLuckyResp.text)
+    print('【dipLuckyResp】' + dipLuckyResp.text)
     respToJson = dipLuckyResp.json()
     if respToJson["err_msg"] == 'success':
         if respToJson["data"]["has_dip"] == True:
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     if xz_server:
         xz_server('掘金签到 && 抽奖 && 沾手气', resultMsg)
     else:
-        print('未启用 息知通知')
+        print('未启用 息知通知！')
