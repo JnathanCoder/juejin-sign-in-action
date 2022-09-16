@@ -75,21 +75,22 @@ if __name__ == '__main__':
     #         lotteryMsg = '抽奖结果：失败！原因' + lotteryJson["err_msg"]
     # else:
     #     lotteryMsg = '今日已使用免费抽奖次数，自动拦截使用钻石💎抽奖'
-    lotteryMsg = 'fggggg...__'
+    lotteryMsg = 'bbbbb...__'
     
-    # 沾手气
-    dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
-    listRespToJson = dipLuckyListResp.json()
-    lottery_history_id = listRespToJson["data"]["lotteries"][0]["history_id"]
-    dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
-    respToJson = dipLuckyResp.json()
-    if respToJson["err_msg"] == 'success':
-        if respToJson["data"]["has_dip"] == True:
-            dipLuckyMsg = "沾手气结果：失败！原因：今日已沾过" + str(respToJson["data"]["dip_value"]) + "点喜气！"
-        else:
-            dipLuckyMsg = "沾手气结果：成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
-    else:
-        dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
+    # # 沾手气
+    # dipLuckyListResp = requests.post(dipLuckyListUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'page_no': 1, 'page_size': 5})
+    # listRespToJson = dipLuckyListResp.json()
+    # lottery_history_id = listRespToJson["data"]["lotteries"][0]["history_id"]
+    # dipLuckyResp = requests.post(dipLuckyUrl, headers=headers, cookies={'Cookie': jj_cookie}, data={'lottery_history_id': lottery_history_id})
+    # respToJson = dipLuckyResp.json()
+    # if respToJson["err_msg"] == 'success':
+    #     if respToJson["data"]["has_dip"] == True:
+    #         dipLuckyMsg = "沾手气结果：失败！原因：今日已沾过" + str(respToJson["data"]["dip_value"]) + "点喜气！"
+    #     else:
+    #         dipLuckyMsg = "沾手气结果：成功！幸运值提升" + str(respToJson["data"]["dip_value"]) + "点，当前：" + str(respToJson["data"]["total_value"]) + " / 6000"
+    # else:
+    #     dipLuckyMsg = "沾手气结果：失败！原因：" + respToJson["err_msg"]
+    dipLuckyMsg = 'ccccccc...'
 
 
     resultMsg = checkInMsg + "\n\n" + lotteryMsg + "\n\n" + dipLuckyMsg
