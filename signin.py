@@ -52,15 +52,16 @@ if __name__ == '__main__':
     # 免费抽奖状态
     freeResp = requests.post(freeUrl, headers=headers, cookies={'Cookie': jj_cookie})
     freeJson = freeResp.json()
-    if freeJson['err_msg'] == 'success':
-        if freeJson['data'] == True:
-            hasFreeLottery = True
-        else:
-            hasFreeLottery = False
-    else:
-        hasFreeLottery = True
+    # if freeJson['err_msg'] == 'success':
+    #     if freeJson['data'] == True:
+    #         hasFreeLottery = True
+    #     else:
+    #         hasFreeLottery = False
+    # else:
+    #     hasFreeLottery = True
 
-    print(hasFreeLottery)
+    print(freeResp.text)
+    # print(hasFreeLottery)
 
 
     # # 有免费抽奖次数
